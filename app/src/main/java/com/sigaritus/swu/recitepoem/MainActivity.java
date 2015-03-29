@@ -3,6 +3,7 @@ package com.sigaritus.swu.recitepoem;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -28,12 +29,9 @@ import java.util.List;
 public class MainActivity extends Activity {
 
     private ViewPager viewpager;
-    private ImageView imageView;
     private View read_view,plan_view,data_view,test_view;
-    private TextView textView1, textView2, textView3, textView4;
-    private int offset = 0;
-    private int currIndex = 0;
-    private int bmpW;
+    private TextView title_view;
+    private ImageView read_img_view,plan_img_view,data_img_view,test_img_view;
     private List<View> viewList;
 
 
@@ -45,7 +43,7 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        initImageView();
+
         initTextView();
         initViewpager();
 
@@ -53,17 +51,7 @@ public class MainActivity extends Activity {
 
     }
 
-    private void initImageView() {
-        imageView= (ImageView) findViewById(R.id.cursor);
-        bmpW = BitmapFactory.decodeResource(getResources(), R.drawable.a).getWidth();
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int screenW = dm.widthPixels;
-        offset = (screenW / 3 - bmpW) / 2;
-        Matrix matrix = new Matrix();
-        matrix.postTranslate(offset, 0);
-        imageView.setImageMatrix(matrix);
-    }
+
     private void initViewpager() {
         viewpager=(ViewPager) findViewById(R.id.viewpager);// threadid=1: thread exiting with uncaught exception
         LayoutInflater inflater = getLayoutInflater();
@@ -76,8 +64,8 @@ public class MainActivity extends Activity {
 
         viewList.add(read_view);
         viewList.add(plan_view);
-        viewList.add(data_view);
         viewList.add(test_view);
+        viewList.add(data_view);
 
 
         viewpager.setAdapter(new MyViewPagerAdapter(viewList));
@@ -88,8 +76,7 @@ public class MainActivity extends Activity {
 
     class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
-        int one = offset * 2 + bmpW;
-        int two = one * 2;
+
         public void onPageScrollStateChanged(int arg0) {
 
 
@@ -102,51 +89,47 @@ public class MainActivity extends Activity {
 
         public void onPageSelected(int arg0) {
 
-//			Animation animation = null;
-//			switch (arg0) {
-//			case 0:
-//				if (currIndex == 1) {
-//					animation = new TranslateAnimation(one, 0, 0, 0);
-//				} else if (currIndex == 2) {
-//					animation = new TranslateAnimation(two, 0, 0, 0);
-//				}
-//				break;
-//			case 1:
-//				if (currIndex == 0) {
-//					animation = new TranslateAnimation(offset, one, 0, 0);
-//				} else if (currIndex == 2) {
-//					animation = new TranslateAnimation(two, one, 0, 0);
-//				}
-//				break;
-//			case 2:
-//				if (currIndex == 0) {
-//					animation = new TranslateAnimation(offset, two, 0, 0);
-//				} else if (currIndex == 1) {
-//					animation = new TranslateAnimation(one, two, 0, 0);
-//				}
-//				break;
-//
-//			}
-//
-            Animation animation = new TranslateAnimation(one*currIndex, one*arg0, 0, 0);
-            currIndex = arg0;
-            animation.setFillAfter(true);// T
-            animation.setDuration(300);
-            imageView.startAnimation(animation);
+            resetImage();
+
+            switch (arg0) {
+                case 0:
+                    read_img_view.setBackgroundResource(R.drawable.read1);
+                    title_view.setText("古诗阅读");
+                    break;
+                case 1:
+                    plan_img_view.setBackgroundResource(R.drawable.plan1);
+                    title_view.setText("学习计划");
+                    break;
+                case 2:
+                    test_img_view.setBackgroundResource(R.drawable.test1);
+                    title_view.setText("即时测试");
+                    break;
+                case 3:
+                    data_img_view.setBackgroundResource(R.drawable.data1);
+                    title_view.setText("学习数据");
+                    break;
+
+            };
             Toast.makeText(MainActivity.this, "view" + viewpager.getCurrentItem() + "", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void initTextView() {
-        textView1 = (TextView) findViewById(R.id.text1);
-        textView2 = (TextView) findViewById(R.id.text2);
-        textView3 = (TextView) findViewById(R.id.text3);
-        textView4 = (TextView) findViewById(R.id.text4);
 
-        textView1.setOnClickListener(new MyOnClickListener(0));
-        textView2.setOnClickListener(new MyOnClickListener(1));
-        textView3.setOnClickListener(new MyOnClickListener(2));
-        textView4.setOnClickListener(new MyOnClickListener(3));
+    private void initTextView() {
+
+        title_view = (TextView)findViewById(R.id.title_text);
+        read_img_view =(ImageView)findViewById(R.id.read_img);
+        plan_img_view =(ImageView)findViewById(R.id.plan_img);
+        test_img_view =(ImageView)findViewById(R.id.test_img);
+        data_img_view =(ImageView)findViewById(R.id.data_img);
+
+        read_img_view.setOnClickListener(new MyOnClickListener(0));
+        plan_img_view.setOnClickListener(new MyOnClickListener(1));
+        test_img_view.setOnClickListener(new MyOnClickListener(2));
+        data_img_view.setOnClickListener(new MyOnClickListener(3));
+
+        read_img_view.setBackgroundResource(R.drawable.read1);
+        title_view.setText("古诗阅读");
     }
 
     private class MyOnClickListener implements View.OnClickListener {
@@ -157,9 +140,35 @@ public class MainActivity extends Activity {
         }
 
         public void onClick(View v) {
+            resetImage();
             viewpager.setCurrentItem(index);
+            switch (index){
+                case 0:
+                    read_img_view.setBackgroundResource(R.drawable.read1);
+                    title_view.setText("古诗阅读");
+                    break;
+                case 1:
+                    plan_img_view.setBackgroundResource(R.drawable.plan1);
+                    title_view.setText("学习计划");
+                    break;
+                case 2:
+                    test_img_view.setBackgroundResource(R.drawable.test1);
+                    title_view.setText("即时测试");
+                    break;
+                case 3:
+                    data_img_view.setBackgroundResource(R.drawable.data1);
+                    title_view.setText("学习数据");
+                    break;
+            };
         }
 
+    }
+
+    private void resetImage(){
+        read_img_view.setBackgroundResource(R.drawable.read);
+        plan_img_view.setBackgroundResource(R.drawable.plan);
+        test_img_view.setBackgroundResource(R.drawable.test);
+        data_img_view.setBackgroundResource(R.drawable.data);
     }
 
     public class MyViewPagerAdapter extends PagerAdapter{
