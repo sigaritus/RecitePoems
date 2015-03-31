@@ -1,12 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
 
-    >
+<com.daimajia.swipe.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sample"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout
+        android:tag="Bottom2"
+        android:background="#333"
+        android:layout_width="40dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_height="120dp">
+        <ImageView
+            android:id="@+id/plan"
+            android:src="@drawable/plan"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:layout_height="fill_parent" />
+        <ImageView
+            android:id="@+id/read"
+            android:src="@drawable/search"
+            android:layout_width="fill_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent" />
+        <ImageView
+            android:id="@+id/test"
+            android:src="@drawable/test"
+            android:layout_margin="3dp"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
+            android:layout_height="fill_parent" />
+    </LinearLayout>
 
- <TextView
-     android:layout_width="fill_parent"
-     android:layout_height="fill_parent"
-     android:text="read"
-     />
-</RelativeLayout>
+    <LinearLayout
+        android:padding="10dp"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:tag="Hover"
+            android:text="If winter comes ,\n can spring be far behind ? \n"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</com.daimajia.swipe.SwipeLayout>

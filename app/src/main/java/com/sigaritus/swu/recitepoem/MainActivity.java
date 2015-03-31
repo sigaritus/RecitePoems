@@ -1,6 +1,5 @@
 package com.sigaritus.swu.recitepoem;
 
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -57,6 +56,7 @@ public class MainActivity extends FragmentActivity {
         fragmentList.add(new ReadFragment());
         fragmentList.add(new ReadFragment());
         fragmentList.add(new ReadFragment());
+
         viewpager.setAdapter(new FragmentAdapter(getSupportFragmentManager(),
                 fragmentList));
         //设置显示哪页

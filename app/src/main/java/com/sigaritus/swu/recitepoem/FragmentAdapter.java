@@ -29,11 +29,7 @@ public class FragmentAdapter extends FragmentPagerAdapter{
 		return list.size();
 	}
 
-    @Override
-    public boolean isViewFromObject(View arg0, Object arg1)
-    {
-        return arg0 == arg1;
-    }
+
 
 
 
