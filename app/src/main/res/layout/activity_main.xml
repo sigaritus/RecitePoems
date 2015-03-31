@@ -3,6 +3,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -29,7 +30,10 @@
     android:layout_height="0dp"
     android:layout_weight="1"
     android:layout_gravity="center" >
-
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </android.support.v4.view.ViewPager>
 
     <LinearLayout
@@ -49,7 +53,7 @@
             android:gravity="center"
             android:orientation="vertical"
             >
-            <ImageButton
+            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/read_img"
@@ -68,7 +72,7 @@
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
             >
-            <ImageButton
+            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/plan_img"
@@ -86,7 +90,7 @@
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
             >
-            <ImageButton
+            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/test_img"
@@ -103,11 +107,11 @@
             android:gravity="center"
             android:orientation="vertical"
             >
-            <ImageButton
+            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/data_img"
-                android:background="@drawable/data"
+                android:id="@+id/search_img"
+                android:background="@drawable/search"
                 />
 
         </LinearLayout>
