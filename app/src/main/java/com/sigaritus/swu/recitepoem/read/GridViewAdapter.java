@@ -22,7 +22,7 @@ public class GridViewAdapter extends BaseSwipeAdapter {
 
     @Override
     public int getSwipeLayoutResourceId(int position) {
-        return R.id.sample;
+        return R.id.swipe;
     }
 
     @Override

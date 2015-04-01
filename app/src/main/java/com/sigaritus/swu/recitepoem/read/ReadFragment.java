@@ -65,6 +65,7 @@ public class ReadFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return read_view;
+        //返回操作后的view  inflater只是初始化。。
     }
 
 

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 
 import com.sigaritus.swu.recitepoem.read.ReadFragment;
+import com.sigaritus.swu.recitepoem.search.SearchFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class MainActivity extends FragmentActivity {
 
         fragmentList.add(new ReadFragment());
         fragmentList.add(new ReadFragment());
-        fragmentList.add(new ReadFragment());
+        fragmentList.add(new SearchFragment());
 
         viewpager.setAdapter(new FragmentAdapter(getSupportFragmentManager(),
                 fragmentList));
@@ -98,7 +99,7 @@ public class MainActivity extends FragmentActivity {
                     break;
                 case 3:
                     search_img_view.setBackgroundResource(R.drawable.search1);
-                    title_view.setText("学习数据");
+                    title_view.setText("学习资料");
                     break;
 
             };
@@ -149,7 +150,7 @@ public class MainActivity extends FragmentActivity {
                     break;
                 case 3:
                     search_img_view.setBackgroundResource(R.drawable.search1);
-                    title_view.setText("学习数据");
+                    title_view.setText("学习资料");
                     break;
             };
         }
