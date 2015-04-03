@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ActionSheetStyleIOS6">
+        <item name="actionSheetBackground">@drawable/as_bg_ios6</item>
+        <item name="cancelButtonBackground">@drawable/as_cancel_bt_bg</item>
+        <item name="otherButtonTopBackground">@drawable/as_other_bt_bg</item>
+        <item name="otherButtonMiddleBackground">@drawable/as_other_bt_bg</item>
+        <item name="otherButtonBottomBackground">@drawable/as_other_bt_bg</item>
+        <item name="otherButtonSingleBackground">@drawable/as_other_bt_bg</item>
+        <item name="cancelButtonTextColor">@android:color/white</item>
+        <item name="otherButtonTextColor">@android:color/black</item>
+        <item name="actionSheetPadding">20dp</item>
+        <item name="otherButtonSpacing">5dp</item>
+        <item name="cancelButtonMarginTop">20dp</item>
+        <item name="actionSheetTextSize">16sp</item>
+    </style>
+
+    <style name="ActionSheetStyleIOS7">
+        <item name="actionSheetBackground">@android:color/transparent</item>
+        <item name="cancelButtonBackground">#ffffff</item>
+        <item name="otherButtonTopBackground">#ffffff</item>
+        <item name="otherButtonMiddleBackground">#ffffff</item>
+        <item name="otherButtonBottomBackground">#ffffff</item>
+        <item name="otherButtonSingleBackground">#ffffff</item>
+        <item name="cancelButtonTextColor">#10f9b7</item>
+        <item name="otherButtonTextColor">#10f9b7</item>
+        <item name="actionSheetPadding">5dp</item>
+        <item name="otherButtonSpacing">0dp</item>
+        <item name="cancelButtonMarginTop">5dp</item>
+        <item name="actionSheetTextSize">16sp</item>
+    </style>
+
+</resources>

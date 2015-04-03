@@ -2,9 +2,7 @@ package com.sigaritus.swu.recitepoem.util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
+
 import java.util.List;
 
 
@@ -29,7 +27,7 @@ public class PoemDAO {
 
 		db = helper.getWritableDatabase();
 		db.execSQL(
-				"insert into Poems(title,author,content,type) values (?,?,?,?) ",
+				"insert into poems(title,author,content,type) values (?,?,?,?) ",
 				new Object[] { Poem.getTitle(), Poem.getAuthor(), Poem.getContent(), Poem.getType()});
 		Log.i("PoemDAO--------------->", "add()");
 	}
@@ -37,14 +35,14 @@ public class PoemDAO {
 	public void update(Poem Poem) {
 		db = helper.getWritableDatabase();
 		db.execSQL(
-				"update Poems set title = ?,author = ? ,content = ?,type=? where pid = ?",
+				"update poems set title = ?,author = ? ,content = ?,type=? where pid = ?",
 				new Object[] { Poem.getTitle(), Poem.getAuthor(), Poem.getContent(), Poem.getType()});
 	}
 
 	public Poem find(int id) {
 		db = helper.getWritableDatabase();
 		Cursor cursor = db.rawQuery(
-				"select title,author,content,type from Poems where pid = ?",
+				"select title,author,content,type from poems where pid = ?",
 				new String[] { String.valueOf(id) });
 		if (cursor.moveToNext()) {
 			return new Poem(
@@ -67,7 +65,7 @@ public class PoemDAO {
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			SQLiteDatabase database = helper.getWritableDatabase();
-			database.execSQL("delete from Poems where pid in (" + sb + ")",
+			database.execSQL("delete from poems where pid in (" + sb + ")",
 					(Object[]) ids);
 		}
 	}
@@ -75,7 +73,7 @@ public class PoemDAO {
 	public List<Poem> getScrollData(int start, int count) {
 		List<Poem> Poems = new ArrayList<Poem>();
 		db = helper.getWritableDatabase();
-		Cursor cursor = db.rawQuery("select * from Poems limit ?,?",
+		Cursor cursor = db.rawQuery("select * from poems limit ?,?",
 				new String[] { String.valueOf(start), String.valueOf(count) });
 		while (cursor.moveToNext()) {
 			Poems.add(new Poem(
@@ -91,10 +89,10 @@ public class PoemDAO {
 		List<String> PoemsList = new ArrayList<String>();
 		db = helper.getWritableDatabase();
 
-		Cursor cursor = db.query("Poems", new String[] { "Poem" }, null, null,
+		Cursor cursor = db.query("poems", new String[] { "poem" }, null, null,
 				null, null, null, null);
 		while (cursor.moveToNext()) {
-			PoemsList.add(cursor.getString(cursor.getColumnIndex("Poem")));
+			PoemsList.add(cursor.getString(cursor.getColumnIndex("poem")));
 		}
 		Log.i("------------>PoemDAO", PoemsList.toString());
 		return PoemsList;
@@ -104,7 +102,7 @@ public class PoemDAO {
 
 	public long getCount() {
 		db = helper.getWritableDatabase();
-		Cursor cursor = db.rawQuery("select count(pid) from Poems", null);
+		Cursor cursor = db.rawQuery("select count(pid) from poems", null);
 		if (cursor.moveToNext()) {
 			return cursor.getLong(0);
 		}

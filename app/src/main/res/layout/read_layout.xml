@@ -6,28 +6,29 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
     <LinearLayout
         android:tag="Bottom2"
-        android:background="#333"
-        android:layout_width="40dp"
+        android:background="#2d3036"
+        android:layout_width="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_height="120dp">
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        android:layout_height="150dp">
         <ImageView
-            android:id="@+id/plan"
-            android:src="@drawable/plan"
+            android:id="@+id/star"
+            android:src="@drawable/star"
             android:layout_width="fill_parent"
             android:layout_weight="1"
             android:layout_margin="3dp"
             android:layout_height="fill_parent" />
         <ImageView
-            android:id="@+id/read"
-            android:src="@drawable/search"
+            android:id="@+id/clock"
+            android:src="@drawable/clock"
             android:layout_width="fill_parent"
             android:layout_margin="3dp"
             android:layout_weight="1"
             android:layout_height="fill_parent" />
         <ImageView
-            android:id="@+id/test"
-            android:src="@drawable/test"
+            android:id="@+id/delete"
+            android:src="@drawable/delete"
             android:layout_margin="3dp"
             android:layout_width="fill_parent"
             android:layout_weight="1"
@@ -45,8 +46,9 @@
             android:layout_height="wrap_content" />
         <TextView
             android:tag="Hover"
-            android:text="If winter comes ,\n can spring be far behind ? \n"
-
+            android:text="《草》\n作者白居易\n离离原上草,\n一岁一枯荣。\n野火烧不尽,\n春风吹又生。\n远芳侵古道,\n晴翠接荒城。\n又送王孙去,\n萋萋满别情。"
+            android:id="@+id/poem_text"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

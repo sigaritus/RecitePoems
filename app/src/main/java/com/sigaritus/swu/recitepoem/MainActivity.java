@@ -8,8 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageButton;
+
 
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,17 +17,19 @@ import android.widget.Toast;
 
 import com.sigaritus.swu.recitepoem.read.ReadFragment;
 import com.sigaritus.swu.recitepoem.search.SearchFragment;
+import com.sigaritus.swu.recitepoem.util.PoemDAO;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements ActionSheet.ActionSheetListener{
 
     private ViewPager viewpager;
 
     private TextView title_view;
-    private ImageView read_img_view, plan_img_view,search_img_view,test_img_view;
+    private ImageView read_img_view, plan_img_view,search_img_view,test_img_view,menu;
     private List<Fragment> fragmentList;
 
 
@@ -38,6 +39,7 @@ public class MainActivity extends FragmentActivity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
 
 
         initTextView();
@@ -64,6 +66,39 @@ public class MainActivity extends FragmentActivity {
 
         viewpager.setCurrentItem(0);
         viewpager.setOnPageChangeListener(new MyOnPageChangeListener());
+
+    }
+
+    public void showActionSheet() {
+        ActionSheet.createBuilder(this, getSupportFragmentManager())
+                .setCancelButtonTitle("取消")
+                .setOtherButtonTitles("收藏诗集", "作者排序", "格式排序", "新增古诗")
+                .setCancelableOnTouchOutside(true).setListener(this).show();
+    }
+    @Override
+    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+
+    }
+
+    @Override
+    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+
+        PoemDAO poemDAO = new PoemDAO(getApplicationContext());
+        switch (index){
+
+            case 0:
+
+            case 1:
+
+            case 2:
+
+            case 3:
+
+
+
+        }
+        Toast.makeText(getApplicationContext(), "click item index = " + index,
+                Toast.LENGTH_SHORT).show();
 
     }
 
@@ -120,7 +155,14 @@ public class MainActivity extends FragmentActivity {
         plan_img_view.setOnClickListener(new MyOnClickListener(1));
         test_img_view.setOnClickListener(new MyOnClickListener(2));
         search_img_view.setOnClickListener(new MyOnClickListener(3));
-
+        menu = (ImageView)findViewById(R.id.menu);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setTheme(R.style.ActionSheetStyleIOS7);
+                showActionSheet();
+            }
+        });
         read_img_view.setBackgroundResource(R.drawable.read1);
         title_view.setText("古诗阅读");
     }

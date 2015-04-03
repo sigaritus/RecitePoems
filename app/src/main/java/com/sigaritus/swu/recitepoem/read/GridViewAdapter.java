@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.sigaritus.swu.recitepoem.R;
@@ -27,7 +29,33 @@ public class GridViewAdapter extends BaseSwipeAdapter {
 
     @Override
     public View generateView(int position, ViewGroup parent) {
-        return LayoutInflater.from(mContext).inflate(R.layout.read_layout, null);
+        View view =LayoutInflater.from(mContext).inflate(R.layout.read_layout, null);
+        ImageView star=(ImageView)view.findViewById(R.id.star);
+        ImageView clock=(ImageView)view.findViewById(R.id.clock);
+        ImageView delete=(ImageView)view.findViewById(R.id.delete);
+        TextView  poem_view = (TextView)view.findViewById(R.id.poem_text);
+
+
+
+        star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,"star",Toast.LENGTH_SHORT).show();
+            }
+        });
+        clock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,"clock",Toast.LENGTH_SHORT).show();
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,"delete",Toast.LENGTH_SHORT).show();
+            }
+        });
+        return view;
     }
 
     @Override
