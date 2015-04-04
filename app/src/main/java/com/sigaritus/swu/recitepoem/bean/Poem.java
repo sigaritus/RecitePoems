@@ -19,6 +19,7 @@ public class Poem {
         this.author =author;
         this.content =content;
         this.type =type;
+        this.collected=0;
 
     }
 

@@ -27,8 +27,8 @@ public class PoemDAO {
 
 		db = helper.getWritableDatabase();
 		db.execSQL(
-				"insert into poems(title,author,content,type) values (?,?,?,?) ",
-				new Object[] { Poem.getTitle(), Poem.getAuthor(), Poem.getContent(), Poem.getType()});
+				"insert into poems(title,author,content,collected,type) values (?,?,?,?,?) ",
+				new Object[] { Poem.getTitle(), Poem.getAuthor(), Poem.getContent(),0, Poem.getType()});
 		Log.i("PoemDAO--------------->", "add()");
 	}
 
@@ -45,6 +45,7 @@ public class PoemDAO {
 				"select title,author,content,type from poems where pid = ?",
 				new String[] { String.valueOf(id) });
 		if (cursor.moveToNext()) {
+            Log.i("pid----------------",""+id);
 			return new Poem(
 					cursor.getString(cursor.getColumnIndex("title")),
 					cursor.getString(cursor.getColumnIndex("author")),
@@ -108,4 +109,5 @@ public class PoemDAO {
 		}
 		return 0;
 	}
+
 }

@@ -9,8 +9,8 @@
         android:background="#2d3036"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginLeft="15dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="80dp"
         android:layout_height="150dp">
         <ImageView
             android:id="@+id/star"

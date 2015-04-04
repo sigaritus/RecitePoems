@@ -1,5 +1,6 @@
 package com.sigaritus.swu.recitepoem;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.sigaritus.swu.recitepoem.read.AddActivity;
 import com.sigaritus.swu.recitepoem.read.ReadFragment;
 import com.sigaritus.swu.recitepoem.search.SearchFragment;
 import com.sigaritus.swu.recitepoem.util.PoemDAO;
@@ -93,7 +95,9 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
             case 2:
 
             case 3:
-
+                Intent add_intent = new Intent(MainActivity.this,AddActivity.class);
+                startActivity(add_intent);
+                break;
 
 
         }

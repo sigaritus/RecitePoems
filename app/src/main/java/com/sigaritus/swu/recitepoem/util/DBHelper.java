@@ -20,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL("create table if not exists poems(pid integer primary key autoincrement,"
-				+ "title text not null,author text not null,content text not null,collected integer not null,type text not null)");
+				+ "title text not null,author text not null,content text not null,collected integer ,type text not null)");
 	}
 
 	@Override

@@ -10,6 +10,11 @@ import android.widget.Toast;
 
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.sigaritus.swu.recitepoem.R;
+import com.sigaritus.swu.recitepoem.bean.Poem;
+import com.sigaritus.swu.recitepoem.util.PoemDAO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2015/3/31.
@@ -17,9 +22,10 @@ import com.sigaritus.swu.recitepoem.R;
 public class GridViewAdapter extends BaseSwipeAdapter {
 
     private Context mContext;
-
+    private PoemDAO dao ;
     public GridViewAdapter(Context mContext) {
         this.mContext = mContext;
+        this.dao = new PoemDAO(mContext);
     }
 
     @Override
@@ -33,7 +39,6 @@ public class GridViewAdapter extends BaseSwipeAdapter {
         ImageView star=(ImageView)view.findViewById(R.id.star);
         ImageView clock=(ImageView)view.findViewById(R.id.clock);
         ImageView delete=(ImageView)view.findViewById(R.id.delete);
-        TextView  poem_view = (TextView)view.findViewById(R.id.poem_text);
 
 
 
@@ -62,11 +67,23 @@ public class GridViewAdapter extends BaseSwipeAdapter {
     public void fillValues(int position, View convertView) {
         TextView t = (TextView)convertView.findViewById(R.id.position);
         t.setText((position + 1 )+".");
+        TextView  poem_view = (TextView)convertView.findViewById(R.id.poem_text);
+
+        Poem poem = dao.find(position+1);
+
+
+
+
+        if (poem!=null) {
+            poem_view.setText(poem.getTitle()+"\n"+poem.getAuthor()+"\n"+poem.getContent());
+
+        }
+
     }
 
     @Override
     public int getCount() {
-        return 50;
+        return (int)dao.getCount();
     }
 
     @Override
