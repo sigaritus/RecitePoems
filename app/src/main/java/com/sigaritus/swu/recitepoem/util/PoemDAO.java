@@ -30,6 +30,7 @@ public class PoemDAO {
 				"insert into poems(title,author,content,collected,type) values (?,?,?,?,?) ",
 				new Object[] { Poem.getTitle(), Poem.getAuthor(), Poem.getContent(),0, Poem.getType()});
 		Log.i("PoemDAO--------------->", "add()");
+        db.close();
 	}
 
 	public void update(Poem Poem) {
@@ -37,6 +38,7 @@ public class PoemDAO {
 		db.execSQL(
 				"update poems set title = ?,author = ? ,content = ?,type=? where pid = ?",
 				new Object[] { Poem.getTitle(), Poem.getAuthor(), Poem.getContent(), Poem.getType()});
+        db.close();
 	}
 
 	public Poem find(int id) {
@@ -46,13 +48,16 @@ public class PoemDAO {
 				new String[] { String.valueOf(id) });
 		if (cursor.moveToNext()) {
             Log.i("pid----------------",""+id);
-			return new Poem(
-					cursor.getString(cursor.getColumnIndex("title")),
-					cursor.getString(cursor.getColumnIndex("author")),
-					cursor.getString(cursor.getColumnIndex("content")),
+            Poem poem = new Poem(
+                    cursor.getString(cursor.getColumnIndex("title")),
+                    cursor.getString(cursor.getColumnIndex("author")),
+                    cursor.getString(cursor.getColumnIndex("content")),
                     cursor.getString(cursor.getColumnIndex("type"))
-                    );
+            );
+            db.close();
+			return poem;
 		}
+        db.close();
 		return null;
 	}
 
@@ -68,6 +73,7 @@ public class PoemDAO {
 			SQLiteDatabase database = helper.getWritableDatabase();
 			database.execSQL("delete from poems where pid in (" + sb + ")",
 					(Object[]) ids);
+            db.close();
 		}
 	}
 
@@ -83,6 +89,7 @@ public class PoemDAO {
 							.getString(cursor.getColumnIndex("content")), cursor
                     .getString(cursor.getColumnIndex("type"))));
 		}
+        db.close();
 		return Poems;
 	}
 
@@ -96,6 +103,7 @@ public class PoemDAO {
 			PoemsList.add(cursor.getString(cursor.getColumnIndex("poem")));
 		}
 		Log.i("------------>PoemDAO", PoemsList.toString());
+        db.close();
 		return PoemsList;
 
 	}
@@ -105,8 +113,11 @@ public class PoemDAO {
 		db = helper.getWritableDatabase();
 		Cursor cursor = db.rawQuery("select count(pid) from poems", null);
 		if (cursor.moveToNext()) {
-			return cursor.getLong(0);
+            long count =cursor.getLong(0);
+            db.close();
+			return count;
 		}
+        db.close();
 		return 0;
 	}
 
