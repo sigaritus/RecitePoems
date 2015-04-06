@@ -48,7 +48,7 @@
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:background="#ffffff"
 
         android:orientation="horizontal"
@@ -63,8 +63,8 @@
             android:orientation="vertical"
             >
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/read_img"
                 android:background="@drawable/read"
                 />
@@ -82,8 +82,8 @@
             android:orientation="vertical"
             >
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/plan_img"
                 android:background="@drawable/plan"
                 />
@@ -100,8 +100,8 @@
             android:orientation="vertical"
             >
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/test_img"
                 android:background="@drawable/test"
                 />
@@ -117,8 +117,8 @@
             android:orientation="vertical"
             >
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/search_img"
                 android:background="@drawable/search"
                 />

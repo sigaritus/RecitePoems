@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.sigaritus.swu.recitepoem.read.AddActivity;
 import com.sigaritus.swu.recitepoem.read.ReadFragment;
 import com.sigaritus.swu.recitepoem.search.SearchFragment;
+import com.sigaritus.swu.recitepoem.test.TestFragment;
 import com.sigaritus.swu.recitepoem.util.PoemDAO;
 
 
@@ -59,7 +60,7 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
         fragmentList.add(new ReadFragment());
 
         fragmentList.add(new ReadFragment());
-        fragmentList.add(new ReadFragment());
+        fragmentList.add(new TestFragment());
         fragmentList.add(new SearchFragment());
 
         viewpager.setAdapter(new FragmentAdapter(getSupportFragmentManager(),
