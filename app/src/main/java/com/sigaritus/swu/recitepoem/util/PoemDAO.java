@@ -54,9 +54,11 @@ public class PoemDAO {
                     cursor.getString(cursor.getColumnIndex("content")),
                     cursor.getString(cursor.getColumnIndex("type"))
             );
+            cursor.close();
             db.close();
 			return poem;
 		}
+        cursor.close();
         db.close();
 		return null;
 	}
@@ -89,6 +91,7 @@ public class PoemDAO {
 							.getString(cursor.getColumnIndex("content")), cursor
                     .getString(cursor.getColumnIndex("type"))));
 		}
+        cursor.close();
         db.close();
 		return Poems;
 	}
@@ -97,12 +100,13 @@ public class PoemDAO {
 		List<String> PoemsList = new ArrayList<String>();
 		db = helper.getWritableDatabase();
 
-		Cursor cursor = db.query("poems", new String[] { "poem" }, null, null,
+		Cursor cursor = db.query("poems", new String[] { "content" }, null, null,
 				null, null, null, null);
 		while (cursor.moveToNext()) {
-			PoemsList.add(cursor.getString(cursor.getColumnIndex("poem")));
+			PoemsList.add(cursor.getString(cursor.getColumnIndex("content")));
 		}
 		Log.i("------------>PoemDAO", PoemsList.toString());
+        cursor.close();
         db.close();
 		return PoemsList;
 
@@ -110,13 +114,29 @@ public class PoemDAO {
 
 
 	public long getCount() {
-		db = helper.getWritableDatabase();
+        if (helper==null){
+            Log.i("help-------","null");
+
+        }else{
+            Log.i("help-------","not null");
+        }
+
+   		db = helper.getWritableDatabase();
+        Log.i("db------",db.isOpen()+"");
+        if (db==null){
+            Log.i("db-------","null");
+
+        }else{
+            Log.i("db-------","not null");
+        }
 		Cursor cursor = db.rawQuery("select count(pid) from poems", null);
 		if (cursor.moveToNext()) {
             long count =cursor.getLong(0);
+            cursor.close();
             db.close();
 			return count;
 		}
+        cursor.close();
         db.close();
 		return 0;
 	}

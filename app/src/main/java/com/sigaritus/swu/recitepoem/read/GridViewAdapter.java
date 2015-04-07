@@ -83,8 +83,10 @@ public class GridViewAdapter extends BaseSwipeAdapter {
 
     @Override
     public int getCount() {
-        return (int)dao.getCount();
+
+        return  (int)dao.getCount();
     }
+
 
     @Override
     public Object getItem(int position) {

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.sigaritus.swu.recitepoem.plan.PlanFragment;
 import com.sigaritus.swu.recitepoem.read.AddActivity;
 import com.sigaritus.swu.recitepoem.read.ReadFragment;
 import com.sigaritus.swu.recitepoem.search.SearchFragment;
@@ -59,7 +60,7 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
 
         fragmentList.add(new ReadFragment());
 
-        fragmentList.add(new ReadFragment());
+        fragmentList.add(new PlanFragment());
         fragmentList.add(new TestFragment());
         fragmentList.add(new SearchFragment());
 

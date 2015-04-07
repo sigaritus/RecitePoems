@@ -32,4 +32,7 @@ public class Sentence {
     public void setContent(String content) {
         this.content = content;
     }
+    public String ToString(){
+        return content;
+    }
 }
