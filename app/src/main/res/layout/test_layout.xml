@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#ffffff"
     >
     <TextView
         android:layout_width="fill_parent"
@@ -14,107 +15,28 @@
         android:id="@+id/question_view"
         android:text="横看成岭侧成峰，\n远近高低各不同。"
         />
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+
+    <ListView
         android:layout_weight="1"
+        android:id="@+id/chooselistview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-
-
-        >
-
-
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@null"
-            android:layout_margin="15dp"
-            android:id="@+id/radio_a"
-            android:background="@drawable/radio_check"
-            />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="床前明月光"
-                android:id="@+id/text_a"
-                android:layout_marginLeft="40dp"
-
-                android:textSize="15sp"
-                />
-
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@null"
-            android:id="@+id/radio_b"
-            android:layout_margin="15dp"
-
-            android:background="@drawable/radio_check"
-            />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="床前明月光"
-                android:layout_marginLeft="40dp"
-
-                android:textSize="15sp"
-                android:id="@+id/text_b"
-                />
-
-
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@null"
-            android:id="@+id/radio_c"
-            android:layout_margin="15dp"
-            android:background="@drawable/radio_check"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="床前明月光"
-            android:layout_marginLeft="40dp"
-
-            android:textSize="15sp"
-            android:id="@+id/text_c"
-            />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@null"
-            android:id="@+id/radio_d"
-            android:layout_margin="15dp"
-            android:background="@drawable/radio_check"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="床前明月光"
-            android:textSize="15sp"
-            android:id="@+id/text_d"
-
-            android:layout_marginLeft="30dp"
-            />
-
-        </RadioGroup>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
+        android:background="#ffffff"
 
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="上一题"
+
             android:id="@+id/pre_text"
             />
 
