@@ -54,11 +54,9 @@ public class PoemDAO {
                     cursor.getString(cursor.getColumnIndex("content")),
                     cursor.getString(cursor.getColumnIndex("type"))
             );
-            cursor.close();
             db.close();
 			return poem;
 		}
-        cursor.close();
         db.close();
 		return null;
 	}
@@ -95,6 +93,26 @@ public class PoemDAO {
         db.close();
 		return Poems;
 	}
+    public ArrayList<String> getPoemList() {
+        ArrayList<String> Poems = new ArrayList<String>();
+        db = helper.getWritableDatabase();
+        Cursor cursor = db.query("poems", new String[] { "title","author","content","type" }, null, null,
+                null, null, null, null);
+        while (cursor.moveToNext()) {
+            Poem poem =new Poem(
+                    cursor.getString(cursor.getColumnIndex("title")), cursor
+                    .getString(cursor.getColumnIndex("author")), cursor
+                    .getString(cursor.getColumnIndex("content")), cursor
+                    .getString(cursor.getColumnIndex("type")));
+//            String[] contents = poem.getContent().split("，");
+//            Log.i("trim ",contents.length+"------");
+            String poemString = poem.getTitle()+"\n"+poem.getAuthor()+"\n"+poem.getContent();
+            Poems.add(poemString);
+        }
+        cursor.close();
+        db.close();
+        return Poems;
+    }
 
 	public List<String> getAllPoems() {
 		List<String> PoemsList = new ArrayList<String>();
@@ -114,21 +132,11 @@ public class PoemDAO {
 
 
 	public long getCount() {
-        if (helper==null){
-            Log.i("help-------","null");
 
-        }else{
-            Log.i("help-------","not null");
-        }
 
    		db = helper.getWritableDatabase();
-        Log.i("db------",db.isOpen()+"");
-        if (db==null){
-            Log.i("db-------","null");
 
-        }else{
-            Log.i("db-------","not null");
-        }
+
 		Cursor cursor = db.rawQuery("select count(pid) from poems", null);
 		if (cursor.moveToNext()) {
             long count =cursor.getLong(0);

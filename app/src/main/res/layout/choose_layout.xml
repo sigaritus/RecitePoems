@@ -56,7 +56,8 @@
             android:id="@+id/text_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
             android:tag="Hover"
-            android:text="Do not, for one repulse, forgo the purpose that you resolved to effort. " />
+            />
     </LinearLayout>
 </com.daimajia.swipe.SwipeLayout>

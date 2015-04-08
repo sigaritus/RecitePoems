@@ -1,6 +1,10 @@
 package com.sigaritus.swu.recitepoem.read;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +26,19 @@ import java.util.List;
 public class GridViewAdapter extends BaseSwipeAdapter {
 
     private Context mContext;
-    private PoemDAO dao ;
+
+
+    private TextView  poem_view;
+    private List<String> mList;
     public GridViewAdapter(Context mContext) {
         this.mContext = mContext;
-        this.dao = new PoemDAO(mContext);
+
+    }
+    public GridViewAdapter(Context mContext,List<String> mList) {
+        this.mContext = mContext;
+
+        this.mList =mList;
+        Log.i("mlist-----------",mList.size()+"");
     }
 
     @Override
@@ -67,24 +80,18 @@ public class GridViewAdapter extends BaseSwipeAdapter {
     public void fillValues(int position, View convertView) {
         TextView t = (TextView)convertView.findViewById(R.id.position);
         t.setText((position + 1 )+".");
-        TextView  poem_view = (TextView)convertView.findViewById(R.id.poem_text);
+        poem_view = (TextView)convertView.findViewById(R.id.poem_text);
 
-        Poem poem = dao.find(position+1);
-
-
+        poem_view.setText(mList.get(position));
 
 
-        if (poem!=null) {
-            poem_view.setText(poem.getTitle()+"\n"+poem.getAuthor()+"\n"+poem.getContent());
-
-        }
 
     }
 
     @Override
     public int getCount() {
 
-        return  (int)dao.getCount();
+        return  mList.size()+1;
     }
 
 
@@ -97,4 +104,28 @@ public class GridViewAdapter extends BaseSwipeAdapter {
     public long getItemId(int position) {
         return position;
     }
+
+//    class PoemQueryThread extends Thread{
+//        int position;
+//        public PoemQueryThread(){
+//
+//        }
+//        public PoemQueryThread(int pos){
+//            this.position =pos;
+//        }
+//        @Override
+//        public void run() {
+//            Poem poem = dao.find(position+1);
+//
+//            if (poem!=null) {
+//                String s =poem.getTitle()+"\n"+poem.getAuthor()+"\n"+poem.getContent();
+//                Message message = new Message();
+//                Bundle poemBund = new Bundle();
+//                poemBund.putString("content",s);
+//                message.setData(poemBund);
+//                handler.sendMessage(message);
+//
+//            }
+//        }
+//    }
 }

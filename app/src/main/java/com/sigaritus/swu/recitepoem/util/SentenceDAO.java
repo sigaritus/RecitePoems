@@ -57,6 +57,7 @@ public class SentenceDAO {
         }
         Log.i("------------>sDAO", SentencesList.toString());
         db.close();
+//        Log.i("sentence list",SentencesList.toString());
         return SentencesList;
 
     }

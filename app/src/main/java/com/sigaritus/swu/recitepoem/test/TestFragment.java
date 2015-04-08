@@ -1,6 +1,8 @@
 package com.sigaritus.swu.recitepoem.test;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,15 +31,44 @@ import java.util.Random;
 public class TestFragment extends Fragment {
     private ListView mListView;
     private ChooseListAdapter mAdapter;
+    List<String> slist;
+    TextView question;
+    Handler handler;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.test_layout,container,false);
+        Random r1 = new Random();
+        question = (TextView)view.findViewById(R.id.question_view);
 
+
+
+        TextView pre =(TextView)view.findViewById(R.id.pre_text);
+        TextView sub = (TextView)view.findViewById(R.id.submit_text);
+        TextView next = (TextView)view.findViewById(R.id.next_text);
 
         mListView = (ListView) view.findViewById(R.id.chooselistview);
 
-        mAdapter = new ChooseListAdapter(getActivity());
-        mListView.setAdapter(mAdapter);
+        new SentenceQueryThread().start();
+
+        handler = new Handler(){
+
+            @Override
+            public void handleMessage(Message msg) {
+                String sentence_pre = slist.get(0).split("，")[0];
+
+                question.setText(sentence_pre);
+
+                mListView.setAdapter(mAdapter);
+            }
+        };
+
+
+
+
+
+
+
+
 
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,35 +116,19 @@ public class TestFragment extends Fragment {
         });
 
 
-        Random r1 = new Random();
-        TextView question = (TextView)view.findViewById(R.id.question_view);
-
-
-
-        TextView pre =(TextView)view.findViewById(R.id.pre_text);
-        TextView sub = (TextView)view.findViewById(R.id.submit_text);
-        TextView next = (TextView)view.findViewById(R.id.next_text);
-
-
-        SentenceDAO sentenceDAO = new SentenceDAO(getActivity());
-
-        List<String> sList = sentenceDAO.getAllSentences();
-        Log.i("slist------testfragment",sList.size()+"");
-
-        Sentence sentence1  = sentenceDAO.find(r1.nextInt(sList.size()));
-        Log.i("sentence-------",sentence1.toString());
-        String s = sentence1.getContent();
-
-        String[] ques = s.split("，");
-
-        int getques = r1.nextInt(2);
-        question.setText(ques[getques]);
-
-        int answer = r1.nextInt(4);
-
-
-
         return view;
 
+    }
+
+    class SentenceQueryThread extends Thread{
+        @Override
+        public void run() {
+            SentenceDAO sentenceDAO = new SentenceDAO(getActivity());
+             slist = sentenceDAO.getAllSentences();
+            mAdapter = new ChooseListAdapter(getActivity(),slist);
+            Message message = new Message();
+            handler.sendMessage(message);
+
+        }
     }
 }
