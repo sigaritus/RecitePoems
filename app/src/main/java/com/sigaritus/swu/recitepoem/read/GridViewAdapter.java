@@ -1,9 +1,11 @@
 package com.sigaritus.swu.recitepoem.read;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.sigaritus.swu.recitepoem.R;
 import com.sigaritus.swu.recitepoem.bean.Poem;
@@ -27,7 +30,7 @@ public class GridViewAdapter extends BaseSwipeAdapter {
 
     private Context mContext;
 
-
+    private SwipeLayout swipeLayout;
     private TextView  poem_view;
     private List<String> mList;
     public GridViewAdapter(Context mContext) {
@@ -43,15 +46,22 @@ public class GridViewAdapter extends BaseSwipeAdapter {
 
     @Override
     public int getSwipeLayoutResourceId(int position) {
+
         return R.id.swipe;
     }
 
     @Override
     public View generateView(int position, ViewGroup parent) {
         View view =LayoutInflater.from(mContext).inflate(R.layout.read_layout, null);
+
+       swipeLayout = (SwipeLayout)view.findViewById(getSwipeLayoutResourceId(position));
+
+        swipeLayout.setDragEdge(SwipeLayout.DragEdge.Left);
+
         ImageView star=(ImageView)view.findViewById(R.id.star);
         ImageView clock=(ImageView)view.findViewById(R.id.clock);
         ImageView delete=(ImageView)view.findViewById(R.id.delete);
+
 
 
 
@@ -82,16 +92,44 @@ public class GridViewAdapter extends BaseSwipeAdapter {
         t.setText((position + 1 )+".");
         poem_view = (TextView)convertView.findViewById(R.id.poem_text);
 
+
         poem_view.setText(mList.get(position));
 
 
+//        swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
+//            @Override
+//            public void onDoubleClick(SwipeLayout layout, boolean surface) {
+//                Toast.makeText(mContext,"doubleclicked",Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(mContext,ReadPoemActivity.class);
+//
+//                Bundle poem_view_bund = new Bundle();
+//                poem_view_bund.putString("poem",poem_view.getText()+"");
+//
+//                mContext.startActivity(intent);
+//
+//            }
+//        });
 
+//        poem_view.setOnClickListener(new View.OnClickListener() {
+//
+//           public void onClick(View v) {
+//                Intent intent = new Intent(mContext,ReadPoemActivity.class);
+////
+//
+//                intent.putExtra("poem",poem_view.getText().toString());
+//
+//                mContext.startActivity(intent);
+//               Log.i("after start ","after ");
+//                   }
+//              }
+//
+//        );
     }
 
     @Override
     public int getCount() {
 
-        return  mList.size()+1;
+        return  mList.size();
     }
 
 
@@ -105,27 +143,4 @@ public class GridViewAdapter extends BaseSwipeAdapter {
         return position;
     }
 
-//    class PoemQueryThread extends Thread{
-//        int position;
-//        public PoemQueryThread(){
-//
-//        }
-//        public PoemQueryThread(int pos){
-//            this.position =pos;
-//        }
-//        @Override
-//        public void run() {
-//            Poem poem = dao.find(position+1);
-//
-//            if (poem!=null) {
-//                String s =poem.getTitle()+"\n"+poem.getAuthor()+"\n"+poem.getContent();
-//                Message message = new Message();
-//                Bundle poemBund = new Bundle();
-//                poemBund.putString("content",s);
-//                message.setData(poemBund);
-//                handler.sendMessage(message);
-//
-//            }
-//        }
-//    }
 }

@@ -38,7 +38,7 @@
     <LinearLayout
         android:padding="10dp"
         android:background="#ffffff"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/position"
@@ -46,10 +46,10 @@
             android:layout_height="wrap_content" />
         <TextView
             android:tag="Hover"
-            android:text="《草》\n作者白居易\n离离原上草,\n一岁一枯荣。\n野火烧不尽,\n春风吹又生。\n远芳侵古道,\n晴翠接荒城。\n又送王孙去,\n萋萋满别情。"
+            android:text=""
             android:id="@+id/poem_text"
             android:gravity="center"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
 </com.daimajia.swipe.SwipeLayout>

@@ -30,7 +30,7 @@ public class ChooseListAdapter extends BaseSwipeAdapter {
     public ChooseListAdapter(Context mContext,List<String> list) {
         this.mContext = mContext;
         this.clist = list;
-        Log.i("clist -------",clist.toString());
+        Log.i("clist -------",clist.size()+"");
     }
 
     @Override
@@ -42,6 +42,9 @@ public class ChooseListAdapter extends BaseSwipeAdapter {
     public View generateView(int position, ViewGroup parent) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.choose_layout, null);
         SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
+
+        swipeLayout.setDragEdge(SwipeLayout.DragEdge.Right);
+
         answer_text = (TextView)v.findViewById(R.id.text_data);
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
@@ -49,12 +52,7 @@ public class ChooseListAdapter extends BaseSwipeAdapter {
 
             }
         });
-        swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
-            @Override
-            public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         return v;
     }
 

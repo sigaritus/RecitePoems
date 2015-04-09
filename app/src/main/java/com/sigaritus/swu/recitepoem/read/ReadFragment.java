@@ -1,6 +1,7 @@
 package com.sigaritus.swu.recitepoem.read;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.daimajia.swipe.util.Attributes;
 import com.sigaritus.swu.recitepoem.R;
@@ -64,30 +66,44 @@ public class ReadFragment extends Fragment {
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("onItemLongClick", "onItemLongClick:" + position);
+
+                Log.i("onItemClick","onItemClick:" + position+"   "+"......");
+
+                TextView textView = (TextView)view.findViewById(R.id.poem_text);
+                Intent intent = new Intent(getActivity(),ReadPoemActivity.class);
+//
+
+                intent.putExtra("poem",textView.getText().toString());
+
+                getActivity().startActivity(intent);
+                Log.i("after start ","after ");
+
+
+
                 return false;
             }
         });
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("onItemClick","onItemClick:" + position);
-            }
-        });
-
-
-        gridView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("onItemSelected","onItemSelected:" + position);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Log.i("onItemClick","onItemClick:" + position+"   "+"......");
+//
+//            }
+//        });
+//
+//
+//        gridView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Log.e("onItemSelected","onItemSelected:" + position);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
 
         // Inflate the layout for this fragment

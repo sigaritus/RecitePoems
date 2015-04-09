@@ -55,7 +55,7 @@ public class SentenceDAO {
         while (cursor.moveToNext()) {
             SentencesList.add(cursor.getString(cursor.getColumnIndex("content")));
         }
-        Log.i("------------>sDAO", SentencesList.toString());
+//        Log.i("------------>sDAO", SentencesList.toString());
         db.close();
 //        Log.i("sentence list",SentencesList.toString());
         return SentencesList;

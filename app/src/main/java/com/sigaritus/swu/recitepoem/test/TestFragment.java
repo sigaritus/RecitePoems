@@ -40,8 +40,6 @@ public class TestFragment extends Fragment {
         Random r1 = new Random();
         question = (TextView)view.findViewById(R.id.question_view);
 
-
-
         TextView pre =(TextView)view.findViewById(R.id.pre_text);
         TextView sub = (TextView)view.findViewById(R.id.submit_text);
         TextView next = (TextView)view.findViewById(R.id.next_text);

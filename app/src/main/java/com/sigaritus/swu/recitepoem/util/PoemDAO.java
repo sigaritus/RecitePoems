@@ -106,7 +106,12 @@ public class PoemDAO {
                     .getString(cursor.getColumnIndex("type")));
 //            String[] contents = poem.getContent().split("，");
 //            Log.i("trim ",contents.length+"------");
-            String poemString = poem.getTitle()+"\n"+poem.getAuthor()+"\n"+poem.getContent();
+            String poemString = poem.getTitle()+"\n"+poem.getAuthor()+"\n";
+            String[] contents = poem.getContent().split("，|。");
+            //格式调整
+            for (int i = 0; i <contents.length ; i++) {
+                poemString+=contents[i]+"\n";
+            }
             Poems.add(poemString);
         }
         cursor.close();
