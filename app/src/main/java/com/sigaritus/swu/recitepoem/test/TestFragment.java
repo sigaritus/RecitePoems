@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ public class TestFragment extends Fragment {
     private ListView mListView;
     private ChooseListAdapter mAdapter;
     List<String> slist;
+    private static int count=0;
     TextView question;
     Handler handler;
     @Override
@@ -44,6 +47,43 @@ public class TestFragment extends Fragment {
         TextView sub = (TextView)view.findViewById(R.id.submit_text);
         TextView next = (TextView)view.findViewById(R.id.next_text);
 
+
+        pre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               if (count==0){
+                   Toast.makeText(getActivity(),"已是第一题",Toast.LENGTH_SHORT).show();
+               }else{
+                   count--;
+                   String sentence_pre = slist.get(count).split("，")[0];
+
+                   question.setText(sentence_pre);
+
+                   mAdapter = new ChooseListAdapter(getActivity(),slist,count);
+                   mListView.setAdapter(mAdapter);
+               }
+
+            }
+        });
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (count==slist.size()-1){
+                    Toast.makeText(getActivity(),"已是最后一题",Toast.LENGTH_SHORT).show();
+                }else {
+                    count++;
+                    String sentence_pre = slist.get(count).split("，")[0];
+
+                    question.setText(sentence_pre);
+
+                    mAdapter = new ChooseListAdapter(getActivity(),slist,count);
+                    mListView.setAdapter(mAdapter);
+                }
+            }
+        });
+
+
         mListView = (ListView) view.findViewById(R.id.chooselistview);
 
         new SentenceQueryThread().start();
@@ -52,7 +92,7 @@ public class TestFragment extends Fragment {
 
             @Override
             public void handleMessage(Message msg) {
-                String sentence_pre = slist.get(0).split("，")[0];
+                String sentence_pre = slist.get(count).split("，")[0];
 
                 question.setText(sentence_pre);
 
@@ -62,17 +102,34 @@ public class TestFragment extends Fragment {
 
 
 
-
-
-
-
-
-
-
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
+                SwipeLayout s=((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition())));
+                s.open(true);
+                LinearLayout linearLayout =(LinearLayout)s.getChildAt(0);
+                Button confirm_btn =(Button)linearLayout.getChildAt(2);
+
+                LinearLayout linearLayout1 = (LinearLayout)s.getChildAt(1);
+                final TextView ans_text = (TextView)linearLayout1.getChildAt(1);
+                Log.i("ans------",ans_text.getText().toString()+"--"+slist.get(count).split("，")[1]);
+                confirm_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (ans_text.getText().toString().equals(slist.get(count).split("，")[1])){
+                            Toast.makeText(getActivity(),"恭喜你答对了",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getActivity(),"答错了，继续努力吧",Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+
+
+
+
+
+
             }
         });
         mListView.setOnTouchListener(new View.OnTouchListener() {

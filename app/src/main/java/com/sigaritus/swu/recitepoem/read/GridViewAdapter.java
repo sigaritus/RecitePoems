@@ -96,34 +96,6 @@ public class GridViewAdapter extends BaseSwipeAdapter {
         poem_view.setText(mList.get(position));
 
 
-//        swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
-//            @Override
-//            public void onDoubleClick(SwipeLayout layout, boolean surface) {
-//                Toast.makeText(mContext,"doubleclicked",Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(mContext,ReadPoemActivity.class);
-//
-//                Bundle poem_view_bund = new Bundle();
-//                poem_view_bund.putString("poem",poem_view.getText()+"");
-//
-//                mContext.startActivity(intent);
-//
-//            }
-//        });
-
-//        poem_view.setOnClickListener(new View.OnClickListener() {
-//
-//           public void onClick(View v) {
-//                Intent intent = new Intent(mContext,ReadPoemActivity.class);
-////
-//
-//                intent.putExtra("poem",poem_view.getText().toString());
-//
-//                mContext.startActivity(intent);
-//               Log.i("after start ","after ");
-//                   }
-//              }
-//
-//        );
     }
 
     @Override
