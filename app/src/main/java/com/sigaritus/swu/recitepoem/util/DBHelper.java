@@ -21,6 +21,10 @@ public class DBHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL("create table if not exists poems(pid integer primary key autoincrement,"
 				+ "title text not null,author text not null,content text not null,collected integer ,type text not null)");
+        db.execSQL("create table if not exists sentences(sid integer primary key autoincrement,"
+                + "content text not null,error_times integer not null)");
+        db.execSQL("create table if not exists plan(id integer primary key autoincrement,"
+                + "content text not null,time text not null)");
 	}
 
 	@Override

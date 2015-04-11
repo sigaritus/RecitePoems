@@ -144,7 +144,7 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
                     break;
 
             };
-            Toast.makeText(MainActivity.this, "view" + viewpager.getCurrentItem() + "", Toast.LENGTH_SHORT).show();
+
         }
     }
 

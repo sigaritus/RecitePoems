@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.sigaritus.swu.recitepoem.plan.WeekView
-        android:id="@+id/weekView"
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加计划"
+            android:gravity="center"
+            android:layout_marginRight="100dp"
+            />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:id="@+id/add_plan_img"
+            android:layout_height="30dp"
+            android:background="@drawable/add"
+            android:layout_marginLeft="80dp"
+            />
+
+        </LinearLayout>
+
+    <ListView
+
+        android:id="@+id/planlistview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:eventTextColor="@android:color/white"
-        app:textSize="12sp"
-        app:hourHeight="60dp"
-        app:headerColumnPadding="8dp"
-        app:headerColumnTextColor="#8f000000"
-        app:headerRowPadding="12dp"
-        app:columnGap="8dp"
-        app:noOfVisibleDays="3"
-        app:headerRowBackgroundColor="#ffefefef"
-        app:dayBackgroundColor="#05000000"
-        app:todayBackgroundColor="#1848adff"
-        app:headerColumnBackground="#ffffffff"/>
+        android:layout_height="match_parent"/>
+
 </LinearLayout>
