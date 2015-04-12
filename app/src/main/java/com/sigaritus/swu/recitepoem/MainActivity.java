@@ -77,7 +77,7 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
     public void showActionSheet() {
         ActionSheet.createBuilder(this, getSupportFragmentManager())
                 .setCancelButtonTitle("取消")
-                .setOtherButtonTitles("收藏诗集", "作者排序", "格式排序", "新增古诗")
+                .setOtherButtonTitles("收藏诗集", "新增古诗")
                 .setCancelableOnTouchOutside(true).setListener(this).show();
     }
     @Override
@@ -97,9 +97,6 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
                 break;
             case 1:
 
-            case 2:
-
-            case 3:
                 Intent add_intent = new Intent(MainActivity.this,AddActivity.class);
                 startActivity(add_intent);
                 break;

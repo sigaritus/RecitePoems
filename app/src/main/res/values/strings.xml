@@ -12,4 +12,5 @@
     <string name="title_activity_read_poem">ReadPoemActivity</string>
     <string name="title_activity_plan_add">PlanAddActivity</string>
     <string name="title_activity_collect">CollectActivity</string>
+    <string name="title_activity_alarm">ALarmActivity</string>
 </resources>

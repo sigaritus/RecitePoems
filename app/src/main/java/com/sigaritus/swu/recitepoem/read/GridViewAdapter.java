@@ -1,5 +1,8 @@
 package com.sigaritus.swu.recitepoem.read;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,15 +15,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.sigaritus.swu.recitepoem.R;
 import com.sigaritus.swu.recitepoem.bean.Poem;
+import com.sigaritus.swu.recitepoem.bean.Sentence;
 import com.sigaritus.swu.recitepoem.util.PoemDAO;
+import com.sigaritus.swu.recitepoem.util.SentenceDAO;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -29,7 +36,7 @@ import java.util.List;
 public class GridViewAdapter extends BaseSwipeAdapter {
 
     private Context mContext;
-
+    private AlarmManager am;
     private SwipeLayout swipeLayout;
     private TextView  poem_view;
     private List<String> mList;
@@ -37,11 +44,13 @@ public class GridViewAdapter extends BaseSwipeAdapter {
     public GridViewAdapter(Context mContext) {
         this.mContext = mContext;
         this.poemDAO = new PoemDAO(mContext);
+        this.am = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
     }
     public GridViewAdapter(Context mContext,List<String> mList) {
         this.mContext = mContext;
         this.poemDAO = new PoemDAO(mContext);
         this.mList =mList;
+        this.am = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
         Log.i("mlist-----------",mList.size()+"");
     }
 
@@ -81,13 +90,26 @@ public class GridViewAdapter extends BaseSwipeAdapter {
         clock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"clock",Toast.LENGTH_SHORT).show();
+                SentenceDAO sentenceDAO = new SentenceDAO(mContext);
+                String[] content =mList.get(position).split("\n");
+                Sentence sentence = new Sentence(0,content[2]+"，"+content[3]+"。");
+                sentenceDAO.add(sentence);
+                Toast.makeText(mContext,"加入测试",Toast.LENGTH_SHORT).show();
+
             }
         });
+
+
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"delete",Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(mContext,ReadPoemActivity.class);
+
+                intent.putExtra("poem",mList.get(position));
+
+                mContext.startActivity(intent);
             }
         });
         return view;
