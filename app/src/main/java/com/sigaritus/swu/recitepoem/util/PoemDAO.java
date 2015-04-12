@@ -41,6 +41,31 @@ public class PoemDAO {
         db.close();
 	}
 
+    public void collect_poem(int pos){
+        db= helper.getWritableDatabase();
+        db.execSQL("update poems set collected =1 where pid =?",new Object[]{pos});
+        db.close();
+    }
+
+    public void cancel_collect_poem(int pos){
+        db= helper.getWritableDatabase();
+        db.execSQL("update poems set collected =0 where pid =?",new Object[]{pos});
+        db.close();
+    }
+
+
+
+    public int get_collected(int pos){
+        int collected=0;
+        db=helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select collected from poems where pid =?",new String[]{String.valueOf(pos)});
+        if (cursor.moveToNext()){
+            collected =cursor.getInt(cursor.getColumnIndex("collected"));
+        }
+        db.close();
+        return collected;
+    }
+
 	public Poem find(int id) {
 		db = helper.getWritableDatabase();
 		Cursor cursor = db.rawQuery(
@@ -116,6 +141,32 @@ public class PoemDAO {
         }
         cursor.close();
         db.close();
+        return Poems;
+    }
+
+    public ArrayList<String> getCollectedPoemList() {
+        ArrayList<String> Poems = new ArrayList<String>();
+        db = helper.getWritableDatabase();
+        Cursor cursor = db.query("poems", new String[] { "title","author","content","type" }, "collected=?", new String[]{String.valueOf(1)},
+                null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            Poem poem =new Poem(
+                    cursor.getString(cursor.getColumnIndex("title")), cursor
+                    .getString(cursor.getColumnIndex("author")), cursor
+                    .getString(cursor.getColumnIndex("content")), cursor
+                    .getString(cursor.getColumnIndex("type")));
+            String poemString = poem.getTitle()+"\n"+poem.getAuthor()+"\n";
+            String[] contents = poem.getContent().split("，|。");
+            //格式调整
+            for (int i = 0; i <contents.length ; i++) {
+                poemString+=contents[i]+"\n";
+            }
+            Poems.add(poemString);
+        }
+        cursor.close();
+        db.close();
+        Log.i("poemdao-collected list","---"+Poems.size());
         return Poems;
     }
 

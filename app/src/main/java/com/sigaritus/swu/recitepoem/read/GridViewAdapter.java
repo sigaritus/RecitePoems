@@ -33,13 +33,14 @@ public class GridViewAdapter extends BaseSwipeAdapter {
     private SwipeLayout swipeLayout;
     private TextView  poem_view;
     private List<String> mList;
+    private PoemDAO poemDAO;
     public GridViewAdapter(Context mContext) {
         this.mContext = mContext;
-
+        this.poemDAO = new PoemDAO(mContext);
     }
     public GridViewAdapter(Context mContext,List<String> mList) {
         this.mContext = mContext;
-
+        this.poemDAO = new PoemDAO(mContext);
         this.mList =mList;
         Log.i("mlist-----------",mList.size()+"");
     }
@@ -51,7 +52,7 @@ public class GridViewAdapter extends BaseSwipeAdapter {
     }
 
     @Override
-    public View generateView(int position, ViewGroup parent) {
+    public View generateView(final int position, ViewGroup parent) {
         View view =LayoutInflater.from(mContext).inflate(R.layout.read_layout, null);
 
        swipeLayout = (SwipeLayout)view.findViewById(getSwipeLayoutResourceId(position));
@@ -68,7 +69,13 @@ public class GridViewAdapter extends BaseSwipeAdapter {
         star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"star",Toast.LENGTH_SHORT).show();
+                if (poemDAO.get_collected(position)==0) {
+                    poemDAO.collect_poem(position);
+                    Toast.makeText(mContext, "已收藏", Toast.LENGTH_SHORT).show();
+                }else{
+                    poemDAO.cancel_collect_poem(position);
+                    Toast.makeText(mContext, "取消收藏", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         clock.setOnClickListener(new View.OnClickListener() {

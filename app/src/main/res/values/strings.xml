@@ -11,4 +11,5 @@
     <string name="action_week_view">Week view</string>
     <string name="title_activity_read_poem">ReadPoemActivity</string>
     <string name="title_activity_plan_add">PlanAddActivity</string>
+    <string name="title_activity_collect">CollectActivity</string>
 </resources>

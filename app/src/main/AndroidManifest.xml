@@ -31,6 +31,10 @@
             android:name=".plan.PlanAddActivity"
             android:label="@string/title_activity_plan_add" >
         </activity>
+        <activity
+            android:name=".read.CollectActivity"
+            android:label="@string/title_activity_collect" >
+        </activity>
     </application>
 
 </manifest>

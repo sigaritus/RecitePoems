@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.sigaritus.swu.recitepoem.plan.PlanFragment;
 import com.sigaritus.swu.recitepoem.read.AddActivity;
+import com.sigaritus.swu.recitepoem.read.CollectActivity;
 import com.sigaritus.swu.recitepoem.read.ReadFragment;
 import com.sigaritus.swu.recitepoem.search.SearchFragment;
 import com.sigaritus.swu.recitepoem.test.TestFragment;
@@ -59,7 +61,6 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
         fragmentList = new ArrayList<Fragment>();
 
         fragmentList.add(new ReadFragment());
-
         fragmentList.add(new PlanFragment());
         fragmentList.add(new TestFragment());
         fragmentList.add(new SearchFragment());
@@ -91,7 +92,9 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
         switch (index){
 
             case 0:
-
+                Intent collect_intent = new Intent(MainActivity.this, CollectActivity.class);
+                startActivity(collect_intent);
+                break;
             case 1:
 
             case 2:
@@ -103,8 +106,7 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
 
 
         }
-        Toast.makeText(getApplicationContext(), "click item index = " + index,
-                Toast.LENGTH_SHORT).show();
+
 
     }
 

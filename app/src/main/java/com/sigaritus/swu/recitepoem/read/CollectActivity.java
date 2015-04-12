@@ -2,9 +2,7 @@ package com.sigaritus.swu.recitepoem.read;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -21,38 +19,20 @@ import com.sigaritus.swu.recitepoem.R;
 import com.sigaritus.swu.recitepoem.util.PoemDAO;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
-public class ReadFragment extends Fragment {
+public class CollectActivity extends Activity {
 
    private Handler handler;
     GridView gridView;
     private PoemDAO poemDAO;
-//    private int Flag;
-
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getData();
-
-    }
-
-//    public void getData(){
-//        Flag=getArguments().getInt("flag");
-//        Log.i("flag----","poem------flag = "+Flag);
-//    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View read_view = inflater.inflate(R.layout.grid_view,container,false);
-         gridView = (GridView)read_view.findViewById(R.id.gridview);
-        poemDAO = new PoemDAO(getActivity());
+        setContentView(R.layout.collect_grid_view);
+        gridView = (GridView)findViewById(R.id.gridview);
+        poemDAO = new PoemDAO(CollectActivity.this);
 
         QueryPoemListThread queryPoemListThread = new QueryPoemListThread();
         queryPoemListThread.start();
@@ -63,9 +43,9 @@ public class ReadFragment extends Fragment {
                 Bundle poem_bund = msg.getData();
                 ArrayList<String> poemList = poem_bund.getStringArrayList("poemList");
 
-                Log.i("handler-----poemlist",poemList.size()+"");
+                Log.i("collect fragment",poemList.size()+"");
 
-                GridViewAdapter adapter = new GridViewAdapter(getActivity(),poemList);
+                GridViewAdapter adapter = new GridViewAdapter(CollectActivity.this,poemList);
 
                 adapter.setMode(Attributes.Mode.Multiple);
                 gridView.setAdapter(adapter);
@@ -82,46 +62,22 @@ public class ReadFragment extends Fragment {
                 Log.i("onItemClick","onItemClick:" + position+"   "+"......");
 
                 TextView textView = (TextView)view.findViewById(R.id.poem_text);
-                Intent intent = new Intent(getActivity(),ReadPoemActivity.class);
+                Intent intent = new Intent(CollectActivity.this,ReadPoemActivity.class);
 //
 
                 intent.putExtra("poem",textView.getText().toString());
 
-                getActivity().startActivity(intent);
-                Log.i("after start ","after ");
+                startActivity(intent);
+
 
 
 
                 return false;
             }
         });
-//        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Log.i("onItemClick","onItemClick:" + position+"   "+"......");
-//
-//            }
-//        });
-//
-//
-//        gridView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                Log.e("onItemSelected","onItemSelected:" + position);
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-
-
-        // Inflate the layout for this fragment
-        return read_view;
-        //返回操作后的view  inflater只是初始化。。
     }
+
+
 
 
     class QueryPoemListThread extends Thread{
@@ -129,15 +85,14 @@ public class ReadFragment extends Fragment {
         public void run() {
             ArrayList<String> poemList=null;
 
-                poemList = poemDAO.getPoemList();
-
+                poemList=poemDAO.getCollectedPoemList();
 
             Log.i("poem",poemList.size()+"-----------------");
             Message message = new Message();
             Bundle poem_bund = new Bundle();
             poem_bund.putStringArrayList("poemList", poemList);
 
-            Log.i("poemList------thread", poemList.size() + "");
+
             message.setData(poem_bund);
             handler.sendMessage(message);
         }
