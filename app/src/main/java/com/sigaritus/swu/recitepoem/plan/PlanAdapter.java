@@ -12,6 +12,7 @@ import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.sigaritus.swu.recitepoem.R;
+import com.sigaritus.swu.recitepoem.bean.Plan;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -23,12 +24,12 @@ import java.util.List;
 public class PlanAdapter  extends BaseSwipeAdapter{
 
     private Context mContext;
-    private ArrayList<String> planlist;
+    private ArrayList<Plan> planlist;
     private TextView plan_text_added;
     public PlanAdapter(Context mContext) {
         this.mContext = mContext;
     }
-    public PlanAdapter(Context mContext,ArrayList<String> planlist) {
+    public PlanAdapter(Context mContext,ArrayList<Plan> planlist) {
         this.mContext = mContext;
         this.planlist =planlist;
         Log.i("planlist adapter",""+planlist.size());
@@ -62,14 +63,14 @@ public class PlanAdapter  extends BaseSwipeAdapter{
     @Override
     public void fillValues(int position, View convertView) {
         TextView t = (TextView)convertView.findViewById(R.id.position);
-        t.setText((position + 1) + ".");
-
-        plan_text_added.setText(planlist.get(position)+"\n"+"\n"+planlist.get(position+1));
+        t.setText((position + 1)+"" );
+        Plan plan = planlist.get(position);
+        plan_text_added.setText(plan.getContent()+"\n"+"\n"+plan.getTime());
     }
 
     @Override
     public int getCount() {
-        return planlist.size()/2;
+        return planlist.size();
     }
 
     @Override

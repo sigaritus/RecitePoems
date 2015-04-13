@@ -9,6 +9,8 @@ import com.sigaritus.swu.recitepoem.bean.Plan;
 import com.sigaritus.swu.recitepoem.bean.Poem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2015/4/11.
@@ -31,9 +33,22 @@ public class PlanDAO {
         db.close();
     }
 
+    public void detele(Integer... ids) {
+        if (ids.length > 0) {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < ids.length; i++) {
+                sb.append('?').append(',');
+            }
+            sb.deleteCharAt(sb.length() - 1);
+            SQLiteDatabase database = helper.getWritableDatabase();
+            database.execSQL("delete from plan where id in (" + sb + ")",
+                    (Object[]) ids);
+            db.close();
+        }
+    }
 
-    public ArrayList<String> getPlanList() {
-        ArrayList<String> plans = new ArrayList<String>();
+    public ArrayList<Plan> getPlanList() {
+        ArrayList<Plan> plans = new ArrayList<Plan>();
         db = helper.getWritableDatabase();
         Cursor cursor = db.query("plan", new String[] { "content","time" }, null, null,
                 null, null, null, null);
@@ -41,9 +56,9 @@ public class PlanDAO {
            Plan plan =new Plan(
                     cursor.getString(cursor.getColumnIndex("content")), cursor
                     .getString(cursor.getColumnIndex("time")));
-//
-           plans.add(plan.getContent());
-           plans.add(plan.getTime());
+
+            plans.add(plan);
+
         }
         cursor.close();
         db.close();

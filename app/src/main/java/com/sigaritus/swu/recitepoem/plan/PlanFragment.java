@@ -15,13 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.util.Attributes;
 import com.sigaritus.swu.recitepoem.R;
+import com.sigaritus.swu.recitepoem.bean.Plan;
 import com.sigaritus.swu.recitepoem.util.PlanDAO;
 
 import java.util.ArrayList;
@@ -39,7 +43,7 @@ public class PlanFragment extends Fragment {
     private ImageView add_img;
     private PlanDAO planDAO;
     private Handler handler;
-    private ArrayList<String> planlist;
+    private ArrayList<Plan> planlist;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.plan_layout,container,false);
         mListView = (ListView) view.findViewById(R.id.planlistview);
@@ -51,11 +55,9 @@ public class PlanFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),PlanAddActivity.class);
 
-                Log.i("intent--------","planadd activity");
 
                 startActivity(intent);
 
-                Log.i("intent--------","after start");
             }
         });
 
@@ -72,45 +74,28 @@ public class PlanFragment extends Fragment {
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition()))).open(true);
-            }
-        });
-        mListView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.e("ListView", "OnTouch");
-                return false;
-            }
-        });
-        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(mContext, "OnItemLongClickListener", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                Log.e("ListView", "onScrollStateChanged");
-            }
+            public void onItemClick(AdapterView<?> parent, View view,  int position, long id) {
 
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                SwipeLayout s=((SwipeLayout)(mListView.getChildAt(position - mListView.getFirstVisiblePosition())));
+                s.open(true);
+                LinearLayout linearLayout =(LinearLayout)s.getChildAt(0);
 
-            }
-        });
+                Button confirm_btn =(Button)linearLayout.getChildAt(2);
 
-        mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("ListView", "onItemSelected:" + position);
-            }
+                LinearLayout linearLayout1 = (LinearLayout)s.getChildAt(1);
+                final TextView pos_text = (TextView)linearLayout1.getChildAt(0);
+                confirm_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.e("ListView", "onNothingSelected:");
+                        Log.i("onclick poem",pos_text.getText().toString());
+                        int pos = Integer.parseInt(pos_text.getText().toString());
+                        planDAO.detele(pos-1);
+                        Toast.makeText(getActivity(),"删除该计划",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
             }
         });
 
