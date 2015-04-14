@@ -33,7 +33,7 @@ import java.util.List;
 public class MainActivity extends FragmentActivity implements ActionSheet.ActionSheetListener{
 
     private ViewPager viewpager;
-
+    public DBManager dbHelper;
     private TextView title_view;
     private ImageView read_img_view, plan_img_view,search_img_view,test_img_view,menu;
     private List<Fragment> fragmentList;
@@ -46,7 +46,9 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-
+        dbHelper = new DBManager(this);
+        dbHelper.openDatabase();
+        dbHelper.closeDatabase();
 
         initTextView();
         initViewpager();

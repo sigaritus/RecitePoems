@@ -34,11 +34,6 @@
             android:name=".read.CollectActivity"
             android:label="@string/title_activity_collect" >
         </activity>
-        <activity
-            android:name=".read.AlarmActivity"
-            android:label="@string/title_activity_alarm" >
-        </activity>
-        <receiver android:name=".read.AlarmReceiver" android:process=":remote"/>
     </application>
 
 </manifest>
