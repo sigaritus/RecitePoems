@@ -47,6 +47,7 @@ public class PlanAddActivity extends Activity {
                 planDAO.add(new Plan(note.getText().toString(),dp.getYear()+"年"+dp.getMonth()+"月"+dp.getDayOfMonth()
                         +"日"+tp.getCurrentHour()+":"+tp.getCurrentMinute()));
                 Toast.makeText(PlanAddActivity.this,"添加成功",Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 

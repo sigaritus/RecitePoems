@@ -4,33 +4,7 @@
     android:orientation="vertical" >
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="#ffffff"
 
-        android:id="@+id/title_lay"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="130dp"
-            android:id="@+id/title_text"
-            android:textColor="#2d3036"
-            android:textSize="20sp"
-             />
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/menu"
-            android:id="@+id/menu"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="8dp"
-
-            />
-    </LinearLayout>
 
 
     <android.support.v4.view.ViewPager

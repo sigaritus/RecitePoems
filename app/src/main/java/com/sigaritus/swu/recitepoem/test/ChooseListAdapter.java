@@ -83,12 +83,7 @@ public class ChooseListAdapter extends BaseSwipeAdapter {
         }else{
             answer_text.setText(clist.get(answer_random.nextInt(clist.size())).split("，")[1]);
         }
-//        confirm_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
 //
-//            }
-//        });
     }
 
     @Override

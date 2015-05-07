@@ -42,10 +42,13 @@ public class PlanFragment extends Fragment {
     private Context mContext = getActivity();
     private ImageView add_img;
     private PlanDAO planDAO;
-    private Handler handler;
+    private static Handler handler;
     private ArrayList<Plan> planlist;
+    private QueryPlanThread planThread;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.plan_layout,container,false);
+        planThread = new QueryPlanThread();
         mListView = (ListView) view.findViewById(R.id.planlistview);
         planDAO = new PlanDAO(getActivity());
         add_img = (ImageView)view.findViewById(R.id.add_plan_img);
@@ -54,20 +57,19 @@ public class PlanFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),PlanAddActivity.class);
-
-
                 startActivity(intent);
 
             }
         });
 
-        new QueryPlanThread().start();
+        planThread.start();
 
         handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
 
                 mListView.setAdapter(mAdapter);
+                Log.i("poem query plan thread",planlist.size()+"");
 
             }
         };
@@ -84,15 +86,19 @@ public class PlanFragment extends Fragment {
 
                 LinearLayout linearLayout1 = (LinearLayout)s.getChildAt(1);
                 final TextView pos_text = (TextView)linearLayout1.getChildAt(0);
+                final TextView ans_text = (TextView)linearLayout1.getChildAt(1);
+                Log.i("ans------",ans_text.getText().toString()+"--");
+                String s1 = ans_text.getText().toString();
+                String[] contents = s1.split("\n");
+                final String plan = contents[0];
                 confirm_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        Log.i("onclick poem",pos_text.getText().toString());
-                        int pos = Integer.parseInt(pos_text.getText().toString());
-                        planDAO.detele(pos-1);
+                        Log.i("poem s1---","----"+plan);
+                        planDAO.detele(plan);
+                        Log.i("plan poem ","delete");
                         Toast.makeText(getActivity(),"删除该计划",Toast.LENGTH_SHORT).show();
-
+                        new QueryPlanThread().start();
                     }
                 });
 
@@ -103,6 +109,38 @@ public class PlanFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.i("onstart----poem","onStart");
+        new QueryPlanThread().start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i("onpause----poem","onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i("onstop----poem","onStop");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.i("ondestroy----poem","onDestroyView");
+    }
+
+
     class QueryPlanThread extends Thread{
         @Override
         public void run() {
@@ -110,9 +148,9 @@ public class PlanFragment extends Fragment {
             planlist = planDAO.getPlanList();
             mAdapter = new PlanAdapter(getActivity(),planlist);
 
-            Log.i("query plan thread",planlist.size()+"");
+            Log.i("poem query plan thread",planlist.size()+"");
 
-            System.out.println("query plan thread"+planlist.size()+"");
+//            System.out.println("query plan thread"+planlist.size()+"");
             mAdapter.setMode(Attributes.Mode.Single);
 
            Message message = new Message();

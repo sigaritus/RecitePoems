@@ -4,13 +4,11 @@
     <string name="app_name">咏诵</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="collect_poem">我的收藏</string>
+    <string name="add_poem">新增古诗</string>
 
-    <string name="action_today">Go to today</string>
-    <string name="action_day_view">Day view</string>
-    <string name="action_three_day_view">3 day view</string>
-    <string name="action_week_view">Week view</string>
-    <string name="title_activity_read_poem">ReadPoemActivity</string>
-    <string name="title_activity_plan_add">PlanAddActivity</string>
-    <string name="title_activity_collect">CollectActivity</string>
-    <string name="title_activity_alarm">ALarmActivity</string>
+    <string name="title_activity_read_poem">古诗诵读</string>
+    <string name="title_activity_plan_add">添加计划</string>
+    <string name="title_activity_collect">古诗收藏</string>
+    <string name="title_activity_poem_add">新增古诗</string>
 </resources>

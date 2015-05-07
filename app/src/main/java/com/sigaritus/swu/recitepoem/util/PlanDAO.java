@@ -47,6 +47,16 @@ public class PlanDAO {
         }
     }
 
+    public void detele(String s) {
+
+            SQLiteDatabase database = helper.getWritableDatabase();
+            database.execSQL("delete from plan where content in ( ? )",
+                    new String[] {s});
+            Log.i("poem --plandao","delete");
+            db.close();
+        }
+
+
     public ArrayList<Plan> getPlanList() {
         ArrayList<Plan> plans = new ArrayList<Plan>();
         db = helper.getWritableDatabase();

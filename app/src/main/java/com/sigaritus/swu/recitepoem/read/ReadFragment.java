@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.util.Attributes;
 import com.sigaritus.swu.recitepoem.R;
+import com.sigaritus.swu.recitepoem.search.SearchFragment;
 import com.sigaritus.swu.recitepoem.util.PoemDAO;
 
 import java.util.ArrayList;
@@ -46,6 +48,12 @@ public class ReadFragment extends Fragment {
 //        Log.i("flag----","poem------flag = "+Flag);
 //    }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,6 +90,22 @@ public class ReadFragment extends Fragment {
                 Log.i("onItemClick","onItemClick:" + position+"   "+"......");
 
                 TextView textView = (TextView)view.findViewById(R.id.poem_text);
+
+
+//                SearchFragment searchFragment = new SearchFragment();
+//
+//
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//                // 用这个fragment替换任何在fragment_container中的东西
+//                // 并添加事务到back stack中以便用户可以回退到之前的状态
+//                transaction.replace(R.id.viewpager, searchFragment);
+//                transaction.addToBackStack(null);
+//
+//                // 提交事务
+//                transaction.commit();
+//
+//                Log.i("onItemClick","onItemClick:" + position+"commit   "+"......");
                 Intent intent = new Intent(getActivity(),ReadPoemActivity.class);
 //
 

@@ -2,9 +2,9 @@ package com.sigaritus.swu.recitepoem;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,29 +30,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends FragmentActivity implements ActionSheet.ActionSheetListener{
+public class MainActivity extends ActionBarActivity {
 
     private ViewPager viewpager;
     public DBManager dbHelper;
-    private TextView title_view;
-    private ImageView read_img_view, plan_img_view,search_img_view,test_img_view,menu;
+    private ImageView read_img_view, plan_img_view,search_img_view,test_img_view;
     private List<Fragment> fragmentList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("oncreate","mainactivity poem 1");
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         dbHelper = new DBManager(this);
         dbHelper.openDatabase();
         dbHelper.closeDatabase();
-
+        Log.i("oncreate","mainactivity poem 1");
         initTextView();
+        Log.i("oncreate","mainactivity poem 2");
         initViewpager();
-
+        Log.i("oncreate","mainactivity poem 3");
 
     }
 
@@ -76,38 +76,6 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
 
     }
 
-    public void showActionSheet() {
-        ActionSheet.createBuilder(this, getSupportFragmentManager())
-                .setCancelButtonTitle("取消")
-                .setOtherButtonTitles("收藏诗集", "新增古诗")
-                .setCancelableOnTouchOutside(true).setListener(this).show();
-    }
-    @Override
-    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
-
-    }
-
-    @Override
-    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
-
-        PoemDAO poemDAO = new PoemDAO(getApplicationContext());
-        switch (index){
-
-            case 0:
-                Intent collect_intent = new Intent(MainActivity.this, CollectActivity.class);
-                startActivity(collect_intent);
-                break;
-            case 1:
-
-                Intent add_intent = new Intent(MainActivity.this,AddActivity.class);
-                startActivity(add_intent);
-                break;
-
-
-        }
-
-
-    }
 
     class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
@@ -129,19 +97,16 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
             switch (arg0) {
                 case 0:
                     read_img_view.setBackgroundResource(R.drawable.read1);
-                    title_view.setText("古诗阅读");
+//
                     break;
                 case 1:
                     plan_img_view.setBackgroundResource(R.drawable.plan1);
-                    title_view.setText("学习计划");
                     break;
                 case 2:
                     test_img_view.setBackgroundResource(R.drawable.test1);
-                    title_view.setText("即时测试");
                     break;
                 case 3:
                     search_img_view.setBackgroundResource(R.drawable.search1);
-                    title_view.setText("学习资料");
                     break;
 
             };
@@ -152,7 +117,6 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
 
     private void initTextView() {
 
-        title_view = (TextView)findViewById(R.id.title_text);
         read_img_view =(ImageView)findViewById(R.id.read_img);
         plan_img_view =(ImageView)findViewById(R.id.plan_img);
         test_img_view =(ImageView)findViewById(R.id.test_img);
@@ -162,16 +126,9 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
         plan_img_view.setOnClickListener(new MyOnClickListener(1));
         test_img_view.setOnClickListener(new MyOnClickListener(2));
         search_img_view.setOnClickListener(new MyOnClickListener(3));
-        menu = (ImageView)findViewById(R.id.menu);
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setTheme(R.style.ActionSheetStyleIOS7);
-                showActionSheet();
-            }
-        });
+//
         read_img_view.setBackgroundResource(R.drawable.read1);
-        title_view.setText("古诗阅读");
+//
     }
 
     private class MyOnClickListener implements View.OnClickListener {
@@ -187,19 +144,15 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
             switch (index){
                 case 0:
                     read_img_view.setBackgroundResource(R.drawable.read1);
-                    title_view.setText("古诗阅读");
                     break;
                 case 1:
                     plan_img_view.setBackgroundResource(R.drawable.plan1);
-                    title_view.setText("学习计划");
                     break;
                 case 2:
                     test_img_view.setBackgroundResource(R.drawable.test1);
-                    title_view.setText("即时测试");
                     break;
                 case 3:
                     search_img_view.setBackgroundResource(R.drawable.search1);
-                    title_view.setText("学习资料");
                     break;
             };
         }
@@ -220,7 +173,8 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -231,7 +185,13 @@ public class MainActivity extends FragmentActivity implements ActionSheet.Action
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.collect_poem) {
+            Intent collect_intent = new Intent(MainActivity.this, CollectActivity.class);
+                startActivity(collect_intent);
+            return true;
+        }else if (id==R.id.add_poem){
+            Intent add_intent = new Intent(MainActivity.this,AddActivity.class);
+                startActivity(add_intent);
             return true;
         }
 
